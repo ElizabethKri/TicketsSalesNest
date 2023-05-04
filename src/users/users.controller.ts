@@ -1,34 +1,39 @@
-import {Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Post, Put, Query} from '@nestjs/common';
+import {UsersService} from "../services/users/users.service";
 
 @Controller('users')
 export class UsersController {
+    constructor(private userService: UsersService) {
+    }
+    //конфликт с текущим роутером
     @Get()
-    getAllUsers(): string {
-        return "all users";
+    getAllUsers(@Query() param): string {
+        console.log('param', param)
+        return param.id;
     }
 //применение декоратора Param (param - объект)
     @Get( ":id")
     getUserByID(@Param() param): string {
-        return "user id is " + param.id;
+        return this.userService.getUserByID(param);
     }
 
     @Post()
     sendAllUsers(): string {
-        return "user post data";
+        return  this.userService.sendAllUsers();
     }
 
     @Put()
     updateUsers(): string {
-        return "user put data";
+        return this.userService.updateUsers();
     }
 
     @Delete()
     deleteUsers(): string {
-        return "user delete data";
+        return this.userService.deleteUsers();
     }
 
     @Delete( ":id")
-    deleteUserByID(@Param() param): string {
-        return "user delete is " + param.id;
+    deleteUserByID(@Param('id') id): string {
+        return this.userService.deleteUserByID(id);
     }
 }
