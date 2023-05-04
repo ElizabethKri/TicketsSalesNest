@@ -1,15 +1,14 @@
-import {Controller, Delete, Get, Param, Post, Put, Query} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 import {UsersService} from "../services/users/users.service";
 
 @Controller('users')
 export class UsersController {
     constructor(private userService: UsersService) {
     }
-    //конфликт с текущим роутером
+    //конфликт с текущим роутером, если используем декоратор @Query
     @Get()
-    getAllUsers(@Query() param): string {
-        console.log('param', param)
-        return param.id;
+    getAllUsers(): string {
+        return this.userService.getAllUsers();
     }
 //применение декоратора Param (param - объект)
     @Get( ":id")
