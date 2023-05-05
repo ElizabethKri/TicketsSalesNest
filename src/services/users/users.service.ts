@@ -2,6 +2,9 @@ import {Delete, Get, Injectable, Param, Post, Put} from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
+    constructor() {
+        console.log('userService run')
+    }
 
     getAllUsers(): string {
         return "service all users";
