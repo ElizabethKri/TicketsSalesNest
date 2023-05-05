@@ -1,9 +1,12 @@
 import {Controller, Delete, Get, Post, Put} from '@nestjs/common';
 import { AppService } from './app.service';
+import {UsersService} from "./services/users/users.service";
 
 @Controller()
 export class AppController {
-  constructor() {}
+  constructor(private usS:UsersService) {
+    this.usS.getUserByID('id')
+  }
 
   @Get()
   getHello(): string {
