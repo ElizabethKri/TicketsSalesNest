@@ -4,8 +4,7 @@ import {UsersService} from "./services/users/users.service";
 
 @Controller()
 export class AppController {
-  constructor(private usS:UsersService) {
-    this.usS.getUserByID('id')
+  constructor() {
   }
 
   @Get()
