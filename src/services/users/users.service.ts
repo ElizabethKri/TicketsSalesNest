@@ -4,6 +4,7 @@ import {Model} from "mongoose";
 import {InjectModel} from "@nestjs/mongoose";
 @Injectable()
 export class UsersService {
+    //инжектирована модель
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>)  {
         console.log('userService run')
     }
@@ -17,12 +18,14 @@ export class UsersService {
     }
 
     async sendAllUsers(data): Promise<User> {
+        //создаем новую запись и передаем параметры, которые получим от клиента
         const userData = new this.userModel(data)
+        //сохранение вставки в таблицу
         return userData.save();
     }
 
-    async updateUsers(id:string): Promise<User> {
-        return this.userModel.findByIdAndUpdate(id);
+    async updateUsers(id:string, body): Promise<User> {
+        return this.userModel.findByIdAndUpdate(id, body);
     }
 
     async deleteUsers(): Promise<User> {

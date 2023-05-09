@@ -22,9 +22,9 @@ export class UsersController {
         return  this.userService.sendAllUsers(data);
     }
 
-    @Put()
-    updateUsers(@Body() data): Promise<User> {
-        return this.userService.updateUsers(data);
+    @Put(":id")
+    updateUsers(@Param("id") id, @Body() data): Promise<User> {
+        return this.userService.updateUsers(id, data);
     }
 
     @Delete()
