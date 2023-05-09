@@ -35,4 +35,12 @@ export class UsersService {
     async deleteUserByID(id: string): Promise<User> {
         return this.userModel.findByIdAndDelete(id);
     }
+
+    async checkAuthUser(login: string, psw: string): Promise<User[]> {
+        return this.userModel.find({login: login, psw: psw});
+    }
+
+    async checkRegUser(login: string): Promise<User[]> {
+        return this.userModel.find({login: login});
+    }
 }
