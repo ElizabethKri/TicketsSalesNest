@@ -1,7 +1,7 @@
 import {Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards} from '@nestjs/common';
-import {UsersService} from "../services/users/users.service";
-import {User} from "../shema/user";
-import {UserDto} from "../dto/user-dto";
+import {UsersService} from "../../services/users/users.service";
+import {User} from "../../shema/user";
+import {UserDto} from "../../dto/user-dto";
 import RejectedValue = jest.RejectedValue;
 import {AuthGuard} from "@nestjs/passport";
 
@@ -21,7 +21,7 @@ export class UsersController {
     getUserByID(@Param('id') id): Promise<User> {
         return this.userService.getUserByID(id);
     }
-
+    //@UseGuards(JwtAuthGuard)
     @Post()
     sendUser(@Body() data: UserDto): Promise<User> {
         return this.userService.checkRegUser(data.login).then((queryRes) => {
