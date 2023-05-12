@@ -20,7 +20,7 @@ export class UsersService {
         return this.userModel.findById(id);
     }
 
-    async sendAllUsers(data): Promise<User> {
+    async sendUser(data): Promise<User> {
         //создаем новую запись и передаем параметры, которые получим от клиента
         const userData = new this.userModel(data)
         //сохранение вставки в таблицу
