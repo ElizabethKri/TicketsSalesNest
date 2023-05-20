@@ -16,12 +16,12 @@ export class TourItemController {
 @UseInterceptors(FilesInterceptor('img', 1,{
 
         storage: diskStorage({
-            detination: './public/',
+            destination: './public/',
             //метод (объект. файл. колбэк)
             filename: (req, file, cb) => {
                 const imgType = file.mimetype.split('/')
                 const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-                const imgName = file.fileIdname + '-' + uniqueSuffix + '.' + imgType[1]
+                const imgName = file.filename + '-' + uniqueSuffix + '.' + imgType[1]
 
                 cb(null, imgName);
                 //запись файла
