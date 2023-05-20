@@ -22,8 +22,8 @@ export class ToursController {
 
     @Post()
     initTours(): Promise<ITour[]> {
-        this.toursService.generateTours(); //метод для записи данных в базу
-        return this.toursService.getAllTours(); //вызываем результат из базы
+        return this.toursService.generateTours(); //метод для записи данных в базу
+        // return this.toursService.getAllTours(); //вызываем результат из базы
     }
 
     @Get()
@@ -31,8 +31,13 @@ export class ToursController {
         return this.toursService.getAllTours();
     }
 
+    @Get(":id")
+    getTourById(@Param("id") id): Promise<ITour> {
+        return this.toursService.getTourById(id);
+    }
+
     @Delete()
-    removeAllTours(): void {
-        this.toursService.deleteTours();
+    removeAllTours(): Promise<any> {
+        return this.toursService.deleteTours();
     }
 }

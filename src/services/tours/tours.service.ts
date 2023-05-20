@@ -4,7 +4,7 @@ import {Model} from "mongoose";
 import {InjectModel} from "@nestjs/mongoose";
 import {TourDto} from "../../dto/tour-dto";
 import {User} from "../../shema/user";
-import {ITourClient} from "../../interfaces/tour";
+import {ITour, ITourClient} from "../../interfaces/tour";
 
 @Injectable()
 export class ToursService {
@@ -12,12 +12,13 @@ export class ToursService {
     constructor(@InjectModel(Tour.name) private tourModel: Model<TourDocument>) {
     }
 //динамически генерирует сущности базы данных
-    async generateTours(): Promise<any> {
+    async generateTours(): Promise<ITour[]> {
         for (let i = 0; i <= this.toursCount; i++ ){
             const tour = new TourDto('test' + i, 'test desc', 'test operation', '300' + i, 'test img')
             const tourData = new this.tourModel(tour);
             await tourData.save();
             }
+        return this.getAllTours()
         }
 
     async deleteTours(): Promise<any>{
@@ -32,6 +33,10 @@ export class ToursService {
         const tour = new TourDto(body.name, body.description, body.tourOperator, body.price, body.img)
         const tourData = new this.tourModel(tour);
         await tourData.save();
+    }
+
+    async getTourById(id): Promise<ITour> {
+        return this.tourModel.findById(id);
     }
 
     }
