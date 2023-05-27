@@ -40,4 +40,10 @@ export class ToursController {
     removeAllTours(): Promise<any> {
         return this.toursService.deleteTours();
     }
+
+    @Get("name")
+    getToursByName(@Param("name") name): Promise<ITour[]>{
+        return this.toursService.getToursByName(name)
+    }
+
 }
